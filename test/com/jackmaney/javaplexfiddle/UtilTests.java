@@ -4,8 +4,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.jackmaney.javaplexfiddle.section31.Util;
-
 public class UtilTests {
 
 	@Test

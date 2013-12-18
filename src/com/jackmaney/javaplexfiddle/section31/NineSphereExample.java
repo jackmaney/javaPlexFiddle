@@ -1,5 +1,7 @@
 package com.jackmaney.javaplexfiddle.section31;
 
+import com.jackmaney.javaplexfiddle.Util;
+
 import edu.stanford.math.plex4.api.Plex4;
 import edu.stanford.math.plex4.homology.barcodes.BarcodeCollection;
 import edu.stanford.math.plex4.homology.chain_basis.Simplex;
