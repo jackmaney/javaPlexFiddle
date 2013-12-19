@@ -63,7 +63,7 @@ public class Exercise4 {
 		 * and q is to the upper-left. Let's flip that around, shall we?
 		 */
 		
-		if(deltaX < 0 && deltaY < 0){
+		if(deltaX < 0){
 			return torusDistance(q, p);
 		}
 		
