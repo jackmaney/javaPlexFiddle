@@ -1,21 +1,8 @@
 package com.jackmaney.javaplexfiddle.section41;
 
-public class Exercise4 {
+import com.jackmaney.javaplexfiddle.Util;
 
-	public static double[][] randomPointsFromUnitSquare(int n){
-		if(n <= 0){
-			throw new IllegalArgumentException();
-		}
-		
-		double[][] result = new double[n][2];
-		
-		for(int i = 0; i < n; i++){
-			result[i][0] = Math.random();
-			result[i][1] = Math.random();
-		}
-		
-		return result;
-	}
+public class Exercise4 {
 	
 	public static double torusDistance(double[] p,double[] q){
 		if(p.length != 2 || q.length != 2){
@@ -140,7 +127,7 @@ public class Exercise4 {
 	public static void main(String[] args) {
 		
 		int n = 3;
-		double[][] points = randomPointsFromUnitSquare(n);
+		double[][] points = Util.randomPointsFromUnitSquare(n);
 		
 		for(int i = 0; i < n; i++){
 			System.out.println("Length: " + points[i].length);

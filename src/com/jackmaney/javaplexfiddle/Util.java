@@ -18,4 +18,19 @@ public class Util {
 	public static int[] intRange(int a){
 		return intRange(0,a);
 	}
+	
+	public static double[][] randomPointsFromUnitSquare(int n){
+		if(n <= 0){
+			throw new IllegalArgumentException();
+		}
+		
+		double[][] result = new double[n][2];
+		
+		for(int i = 0; i < n; i++){
+			result[i][0] = Math.random();
+			result[i][1] = Math.random();
+		}
+		
+		return result;
+	}
 }
