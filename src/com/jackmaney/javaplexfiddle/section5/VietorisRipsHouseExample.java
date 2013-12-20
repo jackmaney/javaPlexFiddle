@@ -36,6 +36,13 @@ public class VietorisRipsHouseExample {
 			= persistence.computeIntervals(stream);
 		
 		System.out.println(intervals);
+		
+		try {
+			Plex4.createBarcodePlot(intervals, "VietorisRipsHouse", 4);
+			System.out.println("Clear!");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 	}
 	
