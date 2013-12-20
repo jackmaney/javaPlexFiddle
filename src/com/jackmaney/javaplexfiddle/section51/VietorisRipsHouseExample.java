@@ -1,4 +1,4 @@
-package com.jackmaney.javaplexfiddle.section5;
+package com.jackmaney.javaplexfiddle.section51;
 
 import edu.stanford.math.plex4.api.Plex4;
 import edu.stanford.math.plex4.homology.barcodes.BarcodeCollection;

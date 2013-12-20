@@ -1,4 +1,4 @@
-package com.jackmaney.javaplexfiddle.section5;
+package com.jackmaney.javaplexfiddle.section51;
 
 import com.jackmaney.javaplexfiddle.section41.Exercise4;
 
