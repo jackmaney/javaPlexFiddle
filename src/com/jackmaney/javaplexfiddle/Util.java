@@ -61,6 +61,39 @@ public class Util {
 		
 	}
 	
+	public static double[][] randomPointsFromFigureEight(int n){
+		if(n <= 0){
+			throw new IllegalArgumentException();
+		}
+		
+		double[][] result = new double[n][2];
+		
+		for(int i = 0; i < n; i++){
+			/*
+			 * We first choose a point randomly on the unit circle
+			 */
+			
+			double theta = 2 * Math.PI * Math.random();
+			
+			double x = Math.cos(theta);
+			double y = Math.sin(theta);
+			
+			/*
+			 * Now, we choose whether or not we're on the circle
+			 *  x^2 + (y-1)^2 = 1 or x^2 + (y+1)^2 = 1 by shifting 
+			 *  the y coordinate either up 1 or down 1 randomly.
+			 */
+			
+			y += Math.random() < 0.5 ? 1 : -1;
+			
+			result[i][0] = x;
+			result[i][1] = y;
+		}
+		
+		
+		return result;
+	}
+	
 	public static double dotProduct(double[] p,double[] q){
 		if(p.length != q.length){
 			throw new IllegalArgumentException();
