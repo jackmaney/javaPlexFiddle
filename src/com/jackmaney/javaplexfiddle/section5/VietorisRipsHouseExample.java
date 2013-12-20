@@ -27,6 +27,8 @@ public class VietorisRipsHouseExample {
 				new VietorisRipsStream<>(space, maxDistance
 						,maxDimension,numDivisions);
 		
+		stream.finalizeStream();
+		
 		AbstractPersistenceAlgorithm<Simplex> persistence 
 			= Plex4.getModularSimplicialAlgorithm(maxDimension, 2);
 		
