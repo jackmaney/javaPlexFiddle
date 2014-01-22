@@ -1,6 +1,5 @@
 package com.jackmaney.javaplexfiddle.section53;
 
-import com.jackmaney.javaplexfiddle.Util;
 
 import edu.stanford.math.plex4.api.Plex4;
 import edu.stanford.math.plex4.homology.barcodes.BarcodeCollection;
@@ -10,17 +9,22 @@ import edu.stanford.math.plex4.metric.impl.EuclideanMetricSpace;
 import edu.stanford.math.plex4.metric.landmark.MaxMinLandmarkSelector;
 import edu.stanford.math.plex4.streams.impl.WitnessStream;
 
-public class WitnessFigureEightExample {
+public class WitnessCircleExample {
 
 	public static void main(String[] args) {
-		
-		int n = 2000;
+		int n = 1000;
 		int numLandmarkPoints = 50;
 		int maxDimension = 3;
 		int numDivisions = 50;
-		double maxDistance = 2;
+		double maxDistance = 1;
 		
-		double[][] pointCloud = Util.randomPointsFromFigureEight(n);
+		double[][] pointCloud = new double[n][2];
+		
+		for(int i = 0; i < n; i++){
+			double theta = 2 * Math.PI * Math.random();
+			pointCloud[i][0] = Math.cos(theta);
+			pointCloud[i][1] = Math.sin(theta);
+		}
 		
 		EuclideanMetricSpace space = new EuclideanMetricSpace(pointCloud);
 		
@@ -41,7 +45,7 @@ public class WitnessFigureEightExample {
 			= persistence.computeIntervals(stream);
 		
 		try {				
-			Plex4.createBarcodePlot(intervals, "WitnessFigureEight", 5);
+			Plex4.createBarcodePlot(intervals, "WitnessCircle", 2);
 			System.out.println("Clear!");
 		} catch (Exception e) {
 			e.printStackTrace();

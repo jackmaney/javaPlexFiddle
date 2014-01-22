@@ -14,11 +14,11 @@ public class WitnessTorusExample {
 
 	public static void main(String[] args) {
 		
-		int n = 10000;
+		int n = 1000;
 		int numLandmarkPoints = 50;
 		int maxDimension = 3;
-		int numDivisions = 50;
-		double maxDistance = 0.9;
+		int numDivisions = 25;
+		double maxDistance = 1;
 		
 		double[][] pointCloud = Util.randomPointsFromUnitSquare(n);
 		TorusMetricSpace space = new TorusMetricSpace(pointCloud);
