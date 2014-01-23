@@ -26,10 +26,10 @@ public class Exercise4 {
 			return 0;
 		}
 		else if(deltaX == 0){ 
-			return Math.max(Math.abs(deltaY), 1 - Math.abs(deltaY));
+			return Math.min(Math.abs(deltaY), 1 - Math.abs(deltaY));
 		}
 		else if(deltaY == 0){ 
-			return Math.max(Math.abs(deltaX), 1 - Math.abs(deltaX));
+			return Math.min(Math.abs(deltaX), 1 - Math.abs(deltaX));
 		}
 		
 		/*
@@ -38,74 +38,64 @@ public class Exercise4 {
 		 * there's a lower-left and upper-right point (ie deltaY / deltaX is
 		 * either positive or negative).
 		 * 
-		 * To prevent further code branching, we'll check to see if the
-		 * slope is negative and if so, apply the horizontal shift
-		 * 				x |-> x + 1 - (lower-right x coordinate)
-		 * and start over. (Note that we could have just as easily
-		 * shifted vertically)
+		 * Before we delve into the code branching, however, let's set aside the 
+		 * Euclidean distance between these points, which we'll call d.
+		 * 
 		 */
 		
-		if((deltaX < 0 && deltaY > 0) || (deltaX > 0 && deltaY < 0)){
-			double[] lowerRight = x1 < x2 ? q : p;
-			double[] upperLeft = x2 < x1 ? q : p;
-			
-			double[] shiftedLR = {0,lowerRight[1]};
-			double[] shiftedUL = {upperLeft[0] + 1 - lowerRight[0]
-					,upperLeft[1]};
-			
-			return torusDistance(shiftedLR, shiftedUL);
-			
-		}
+		double d = Math.sqrt(Math.pow(deltaX,2) + Math.pow(deltaY,2));
+		
+		// Figure out which of the two is to the right of the other.
+		double[] rightMostPoint = deltaX > 0 ? q : p;
+		double[] leftMostPoint = deltaX < 0 ? q : p;
 		
 		/*
-		 * Now, we have deltaX and deltaY both of the same sign.
-		 * If they're both negative, then p is to the upper-right
-		 * and q is to the upper-left. Let's flip that around, shall we?
+		 * We'll also need the Euclidean distance between these two points after
+		 * shifting rightMostPoint all the way around to the left
+		 * via the transformation x |-> (x + 1 - rightMostPoint[0]) % 1.
+		 * 
+		 * After this transformation, we have the points
+		 * (leftMostPoint[0] + 1 - rightMostPoint[0], leftMostPoint[1]) and
+		 * (0,rightMostPoint[1])
 		 */
 		
-		if(deltaX < 0){
-			return torusDistance(q, p);
-		}
-		
-		/*
-		 * Now we can finally assume that p is to the lower-left and
-		 * q is to the upper-right.
-		 * 
-		 * Since we're on a torus, we have three different numbers to compare:
-		 * 
-		 * 		* d, the normal Euclidean distance between q and p.
-		 * 		* dx, the Euclidean distance after shifting q over to the
-		 * 				left side of the square via the transformation
-		 * 				x |-> x + 1 - x2
-		 * 		* dy, the Euclidean distance after shifting q vertically
-		 * 				to the bottom of the square via the transformation
-		 * 				y |-> y + 1 - y2
-		 * 
-		 * Note that since x1 < x2 and y1 < y2, these transformations don't 
-		 * wrap p around the torus (ie x1 + 1 - x2 and y1 + 1 -y2 are still
-		 * less than 1).
-		 * 
-		 * We already know that d = sqrt(deltaX^2 + deltaY^2).
-		 * 
-		 * For dx, our points become P'(x1 + 1 - x2,y1) = (1-deltaX,y1)
-		 * and Q'(0,y2). So, dx = sqrt((1 - deltaX)^2 + deltaY^2).
-		 * 
-		 * Similarly, dy = sqrt(deltaX^2 + (1 - deltaY)^2).
-		 */
-		
-		double d = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
 		double dx = Math.sqrt(
-					(1 - deltaX)*(1-deltaX) + deltaY * deltaY
+				Math.pow( (leftMostPoint[0] + 1 - rightMostPoint[0]), 2) + 
+				Math.pow(leftMostPoint[1] - rightMostPoint[1], 2)
 				);
+		
+		/*
+		 * We also do the same thing with a vertical shift, figuring out
+		 * which point is above the other.
+		 */
+		
+		double[] upperPoint = deltaY > 0 ? q : p;
+		double[] lowerPoint = deltaX < 0 ? q : p;
+		
+		/*
+		 * Same deal as above, we apply the transformation
+		 * y |-> (y + 1 - upperPoint[1]) % 1
+		 * 
+		 * and we get the points
+		 * (lowerPoint[0], lowerPoint[1] + 1 - upperPoint[1]) and
+		 * (upperPoint[0], 0).
+		 */
+		
 		double dy = Math.sqrt(
-					deltaX * deltaX + (1-deltaY)*(1-deltaY)
+				Math.pow(lowerPoint[0] - upperPoint[0], 2) +
+				Math.pow(lowerPoint[1] + 1 - upperPoint[1], 2)
 				);
+				
+		
+		
+		//System.out.println("d = " + d + ", dx = " + dx + ", dy = " + dy);
 		
 		return Math.min(Math.min(d,dx), dy);
 		
 		/*
-		 * Fun trivia fact: d <= dx iff deltaX <= 1/2 and
-		 * d <= dy iff deltaY <= 1/2.
+		 * I'll leave it as an exercise to you to show that we don't need
+		 * to figure out what happens if we shift lowerPoint down towards the top
+		 * of the torus or leftPoint back towards the right side.
 		 */
 			
 	}
