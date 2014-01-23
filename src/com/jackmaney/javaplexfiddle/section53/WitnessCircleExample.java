@@ -16,14 +16,15 @@ public class WitnessCircleExample {
 		int numLandmarkPoints = 50;
 		int maxDimension = 3;
 		int numDivisions = 50;
-		double maxDistance = 1;
+		double r = 5;
+		double maxDistance = r;
 		
 		double[][] pointCloud = new double[n][2];
 		
 		for(int i = 0; i < n; i++){
 			double theta = 2 * Math.PI * Math.random();
-			pointCloud[i][0] = Math.cos(theta);
-			pointCloud[i][1] = Math.sin(theta);
+			pointCloud[i][0] = r * Math.cos(theta);
+			pointCloud[i][1] = r * Math.sin(theta);
 		}
 		
 		EuclideanMetricSpace space = new EuclideanMetricSpace(pointCloud);
@@ -45,7 +46,7 @@ public class WitnessCircleExample {
 			= persistence.computeIntervals(stream);
 		
 		try {				
-			Plex4.createBarcodePlot(intervals, "WitnessCircle", 2);
+			Plex4.createBarcodePlot(intervals, "WitnessCircle", 2 * r);
 			System.out.println("Clear!");
 		} catch (Exception e) {
 			e.printStackTrace();

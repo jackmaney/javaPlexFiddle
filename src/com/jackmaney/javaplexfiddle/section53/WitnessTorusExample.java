@@ -18,7 +18,7 @@ public class WitnessTorusExample {
 		int numLandmarkPoints = 60;
 		int maxDimension = 3;
 		int numDivisions = 25;
-		double maxDistance = 0.9;
+		double maxDistance = 1.1;
 		
 		double[][] pointCloud = Util.randomPointsFromUnitSquare(n);
 		TorusMetricSpace space = new TorusMetricSpace(pointCloud);
@@ -40,7 +40,7 @@ public class WitnessTorusExample {
 			= persistence.computeIntervals(stream);
 	
 		try {
-			Plex4.createBarcodePlot(intervals, "WitnessTorus", 1);
+			Plex4.createBarcodePlot(intervals, "WitnessTorus", maxDistance);
 			System.out.println("Clear!");
 		} catch (Exception e) {
 			e.printStackTrace();

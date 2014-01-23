@@ -1,5 +1,7 @@
 package com.jackmaney.javaplexfiddle.section53;
 
+import java.io.PrintWriter;
+
 import com.jackmaney.javaplexfiddle.Util;
 
 import edu.stanford.math.plex4.api.Plex4;
@@ -15,12 +17,42 @@ public class WitnessFigureEightExample {
 	public static void main(String[] args) {
 		
 		int n = 2000;
-		int numLandmarkPoints = 50;
+		double r = 10;
+		int numLandmarkPoints = 75;
 		int maxDimension = 3;
 		int numDivisions = 50;
-		double maxDistance = 2;
+		double maxDistance = 2 * r;
 		
-		double[][] pointCloud = Util.randomPointsFromFigureEight(n);
+		double[][] pointCloud = new double[n][2];
+		
+		for(int i = 0; i < n; i++){
+			double theta = 2 * Math.PI * Math.random();
+			double x = r * Math.cos(theta);
+			double y = r * Math.sin(theta);
+			
+			if(Math.random() < 0.5){
+				y -= r;
+			}
+			else{
+				y += r;
+			}
+			
+			pointCloud[i][0] = x;
+			pointCloud[i][1] = y;
+		}
+		
+//		try {
+//			PrintWriter writer = new PrintWriter("figure_eight.csv","UTF-8");
+//			for(int i = 0; i < n; i++){
+//				writer.println(pointCloud[i][0] + "," + pointCloud[i][1]);
+//			}
+//			writer.close();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		
+//		System.exit(0);
+		
 		
 		EuclideanMetricSpace space = new EuclideanMetricSpace(pointCloud);
 		
@@ -41,7 +73,7 @@ public class WitnessFigureEightExample {
 			= persistence.computeIntervals(stream);
 		
 		try {				
-			Plex4.createBarcodePlot(intervals, "WitnessFigureEight", 5);
+			Plex4.createBarcodePlot(intervals, "WitnessFigureEight_radius_" + r, 2 * r);
 			System.out.println("Clear!");
 		} catch (Exception e) {
 			e.printStackTrace();
